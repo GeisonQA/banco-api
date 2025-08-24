@@ -6,7 +6,7 @@ const credenciaisInvalidas = require('../fixtures/credenciaisInvalidas.json');
 const credenciaisVazia = require('../fixtures/credenciaisVazia.json');
 
 
-describe('POST', () => {
+describe('Login', () => {
     describe('POST/login', () => {
         it('Deve retornar status 200 para login com credenciais validas', async() => {
             
