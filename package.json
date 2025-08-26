@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --reporter mochawesome",
     "rest-api": "node rest/app.js",
     "graphql-api": "node graphql/app.js"
   },
@@ -15,7 +15,7 @@
     "apollo-server": "^3.13.0",
     "chai": "^5.2.1",
     "crypto": "^1.0.1",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "graphql": "^16.10.0",
     "http-errors": "^2.0.0",
@@ -25,5 +25,8 @@
     "open-api-test-automation-coverage": "^1.0.0",
     "supertest": "^7.1.4",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "mochawesome": "^7.1.3"
   }
 }
