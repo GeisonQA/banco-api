@@ -3,9 +3,7 @@ const { app } = require('../rest/app.js');
 const { expect } = require('chai');
 const { obterToken } = require('../helpers/auteticador.js')
 const dadosTransferencia = require('../fixtures/dadosTransferencia.json');
-const saldoInvalido = require('../fixtures/saldoInvalido.json');
-const transferenciaAcimaDeCincoMil = require('../fixtures/transferenciaAcimaDeCincoMil.json');
-const saldoValido = require('../fixtures/saldoValido.json');        
+       
 
 
 describe('Transferencias', () => {
@@ -32,6 +30,11 @@ describe('Transferencias', () => {
         });
 
         it('Não deve permitir transferência quando não houver saldo suficiente ', async () => {
+             
+            const saldoInvalido = {...dadosTransferencia}
+            saldoInvalido.valor = 700
+            saldoInvalido.contaOrigem = 2
+            saldoInvalido.contaDestino = 1
 
             const response = await req(app)
                 .post('/transferencias')
@@ -45,6 +48,9 @@ describe('Transferencias', () => {
         });
 
         it('Validar que transferencias acima de 5000 sem token adicional retornará status 401 e resposta deve conter "Token adicional obrigatório" ', async () => {
+            
+            const transferenciaAcimaDeCincoMil = {...dadosTransferencia}
+            transferenciaAcimaDeCincoMil.valor = 5001
 
             const response = await req(app)
                 .post('/transferencias')
@@ -58,6 +64,11 @@ describe('Transferencias', () => {
         });
 
         it('Deve permitir transferência quando houver saldo suficiente e contas ativas. ', async () => {
+            
+            const saldoValido = {...dadosTransferencia}
+            saldoValido.valor = 70
+            saldoValido.contaOrigem = 1
+            saldoValido.contaDestino = 2
 
             const response = await req(app)
                 .post('/transferencias')
@@ -79,7 +90,6 @@ describe('Transferencias', () => {
                 
            
             expect(response.status).to.equal(200);
-      
             expect(response.body).to.have.property('page').that.is.a('number');
             expect(response.body).to.have.property('limit').that.is.a('number');
             expect(response.body).to.have.property('total').that.is.a('number');
